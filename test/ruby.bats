@@ -19,12 +19,15 @@ setup() {
 
 @test "It should execute Ruby code" {
   run docker run $IMG bash -c "ruby -e \"puts 'Hello'\" | grep Hello"
+  [ $status -eq 0 ]
 }
 
 @test "It should install Bundler" {
   run docker run $IMG bash -c "which bundler"
+  [ $status -eq 0 ]
 }
 
 @test "It should be protected against CVE-2014-2525" {
   run docker run $IMG bash -c "ruby -rpsych -e 'p Psych.libyaml_version[2] > 5' | grep true"
+  [ $status -eq 0 ]
 }
